@@ -11,7 +11,7 @@ export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 			<Card className="overflow-hidden shadow-card transition-shadow hover:shadow-lg h-full">
 				<CardHeader>
 					<div className="flex items-start justify-between">
-						<div className="flex items-center  gap-3">
+						<div className="flex items-center gap-3">
 							{person.urlFoto ? (
 								<Image
 									src={person.urlFoto}
@@ -24,9 +24,7 @@ export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 								<div className="w-16 h-16 rounded-full bg-muted-foreground" />
 							)}
 							<div>
-								<CardTitle className="text-base leading-tight">
-									{person.nome}
-								</CardTitle>
+								<CardTitle>{person.nome}</CardTitle>
 								<p className="text-sm text-muted-foreground">
 									{person.idade} anos • {person.sexo}
 								</p>
