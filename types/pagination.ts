@@ -1,11 +1,9 @@
-// Interface para informações de ordenação
 interface Sort {
 	unsorted: boolean;
 	sorted: boolean;
 	empty: boolean;
 }
 
-// Interface para informações de paginação
 interface Pageable {
 	pageNumber: number;
 	pageSize: number;
@@ -15,7 +13,6 @@ interface Pageable {
 	paged: boolean;
 }
 
-// Interface principal para a resposta paginada
 export interface IPaginatedResponse<T> {
 	totalElements: number;
 	totalPages: number;

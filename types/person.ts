@@ -1,20 +1,17 @@
-// Interface para detalhes da ocorrência
 interface OcorrenciaEntrevDesapDTO {
-	informacao: string;
+	informacao: string | null;
 	vestimentasDesaparecido: string;
 }
 
-// Interface para a última ocorrência
 interface UltimaOcorrencia {
 	dtDesaparecimento: string;
 	dataLocalizacao: string | null;
 	encontradoVivo: boolean;
 	localDesaparecimentoConcat: string;
-	ocorrenciaEntrevDesapDTO: OcorrenciaEntrevDesapDTO;
+	ocorrenciaEntrevDesapDTO?: OcorrenciaEntrevDesapDTO;
 	ocoId: number;
 }
 
-// Interface para cada pessoa desaparecida
 export interface IPessoaDesaparecida {
 	id: number;
 	nome: string;

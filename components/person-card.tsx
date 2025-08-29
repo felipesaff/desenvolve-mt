@@ -4,10 +4,11 @@ import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Calendar, MapPin } from "lucide-react";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 	return (
-		<Link href={`/person/${person.id}`}>
+		<Link href={`/pessoa/${person.id}`}>
 			<Card className="overflow-hidden shadow-card transition-shadow hover:shadow-lg h-full">
 				<CardHeader>
 					<div className="flex items-start justify-between">
@@ -50,24 +51,12 @@ export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 						{person.ultimaOcorrencia.dataLocalizacao ? (
 							<span>
 								Encontrado em{" "}
-								{new Date(
-									person.ultimaOcorrencia.dtDesaparecimento
-								).toLocaleDateString("pt-BR", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-								})}
+								{formatDate(person.ultimaOcorrencia.dataLocalizacao)}
 							</span>
 						) : (
 							<span>
 								Desaparecido em{" "}
-								{new Date(
-									person.ultimaOcorrencia.dtDesaparecimento
-								).toLocaleDateString("pt-BR", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-								})}
+								{formatDate(person.ultimaOcorrencia.dtDesaparecimento)}
 							</span>
 						)}
 					</div>
