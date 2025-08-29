@@ -1,7 +1,6 @@
-import "@/lib/axios-config";
+import api from "@/lib/axios-config";
 import { IPaginatedResponse } from "@/types/pagination";
 import { IPessoaDesaparecida } from "@/types/person";
-import axios from "axios";
 
 export async function getPersons(filters: {
 	nome?: string;
@@ -12,14 +11,11 @@ export async function getPersons(filters: {
 	porPagina: number;
 	status?: "DESAPARECIDO" | "LOCALIZADO";
 }) {
-	const searchParams = Object.entries(filters)
-		.map(
-			([key, value]) =>
-				`${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-		)
-		.join("&");
-	const { data } = await axios.get<IPaginatedResponse<IPessoaDesaparecida>>(
-		`/pessoas/aberto/filtro?${searchParams}`
+	const { data } = await api.get<IPaginatedResponse<IPessoaDesaparecida>>(
+		`/pessoas/aberto/filtro`,
+		{
+			params: { ...filters, status: "DESAPARECIDO" },
+		}
 	);
 	return data;
 }

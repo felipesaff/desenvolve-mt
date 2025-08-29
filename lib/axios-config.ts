@@ -1,11 +1,17 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://abitus-api.geia.vip/v1";
-axios.defaults.headers.common.Accept = "application/json";
+const api = axios.create({
+	baseURL: "https://abitus-api.geia.vip/v1",
+	headers: {
+		Accept: "application/json",
+	},
+});
 
-axios.interceptors.response.use(
+api.interceptors.response.use(
 	(response) => response,
 	(error) => {
 		return Promise.reject(error);
 	}
 );
+
+export default api;
