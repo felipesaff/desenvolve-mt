@@ -1,15 +1,21 @@
 import { getPersons } from "@/actions/persons";
 import { Filters } from "@/components/filters";
 import { PersonCard } from "@/components/person-card";
+import { IPersonFilters } from "@/types/filters";
 
-export default async function Home() {
-	const paginatedPersons = await getPersons({ pagina: 1, porPagina: 10 });
+export default async function Home({
+	searchParams,
+}: {
+	searchParams: Promise<IPersonFilters>;
+}) {
+	const filters = await searchParams;
+	const paginatedPersons = await getPersons(filters);
 	return (
 		<div className="font-sans space-y-4 items-center min-h-screen">
 			<Header />
 			<main className="flex flex-col items-center px-6">
-				<Filters />
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 w-full">
+				<Filters filters={filters} />
+				<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4 w-full">
 					{paginatedPersons.content.map((person) => (
 						<PersonCard key={person.id} person={person} />
 					))}

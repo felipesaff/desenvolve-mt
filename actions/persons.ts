@@ -1,16 +1,9 @@
 import api from "@/lib/axios-config";
+import { IPersonFilters } from "@/types/filters";
 import { IPaginatedResponse } from "@/types/pagination";
 import { IPessoaDesaparecida } from "@/types/person";
 
-export async function getPersons(filters: {
-	nome?: string;
-	faixaIdadeInicial?: number;
-	faixaIdadeFinal?: number;
-	sexo?: "MASCULINO" | "FEMININO";
-	pagina: number;
-	porPagina: number;
-	status?: "DESAPARECIDO" | "LOCALIZADO";
-}) {
+export async function getPersons(filters: IPersonFilters) {
 	const { data } = await api.get<IPaginatedResponse<IPessoaDesaparecida>>(
 		`/pessoas/aberto/filtro`,
 		{
