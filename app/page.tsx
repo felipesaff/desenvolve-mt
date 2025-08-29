@@ -8,13 +8,11 @@ export default async function Home() {
 			<main className="flex flex-col row-start-2 items-center sm:items-start">
 				<h1 className="text-3xl font-bold">Página Principal</h1>
 
-				<ul className="flex flex-row flex-wrap gap-4 mt-4">
+				<div className="flex flex-row flex-wrap gap-4 mt-4">
 					{paginatedPersons.content.map((person) => (
-						<li key={person.id}>
-							<PersonCard person={person} />
-						</li>
+						<PersonCard key={person.id} person={person} />
 					))}
-				</ul>
+				</div>
 			</main>
 		</div>
 	);

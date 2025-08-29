@@ -1,47 +1,85 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { IPessoaDesaparecida } from "@/types/person";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
+import { Calendar, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 	return (
-		<Card className="w-sm h-full">
-			<CardHeader>
-				<CardTitle>{person.nome}</CardTitle>
-				<CardDescription>
-					{person.sexo} - {person.idade} ANOS
-				</CardDescription>
-			</CardHeader>
-			<CardContent>
-				{person.urlFoto ? (
-					<Image
-						src={person.urlFoto}
-						alt={person.nome}
-						width={200}
-						height={200}
-					/>
-				) : (
-					<p>Nenhuma imagem disponível</p>
-				)}
-			</CardContent>
-			<CardFooter className="flex-col gap-2">
-				<Badge
-					variant={
-						person.ultimaOcorrencia.dataLocalizacao ? "default" : "destructive"
-					}
-				>
-					{person.ultimaOcorrencia.dataLocalizacao
-						? `LOCALIZADO em ${person.ultimaOcorrencia.dataLocalizacao}`
-						: "Desaparecido"}
-				</Badge>
-			</CardFooter>
-		</Card>
+		<Link href={`/person/${person.id}`}>
+			<Card className="overflow-hidden shadow-card transition-shadow hover:shadow-lg w-sm h-full">
+				<CardHeader>
+					<div className="flex items-start justify-between">
+						<div className="flex items-center  gap-3">
+							{person.urlFoto ? (
+								<Image
+									src={person.urlFoto}
+									alt={`Foto de ${person.nome}`}
+									width={500}
+									height={500}
+									className="w-16 h-16 rounded-full"
+								/>
+							) : (
+								<div className="w-16 h-16 rounded-full bg-muted-foreground" />
+							)}
+							<div>
+								<CardTitle className="text-base leading-tight">
+									{person.nome}
+								</CardTitle>
+								<p className="text-sm text-muted-foreground">
+									{person.idade} anos • {person.sexo}
+								</p>
+							</div>
+						</div>
+						<Badge
+							variant={
+								person.ultimaOcorrencia.dataLocalizacao
+									? "default"
+									: "destructive"
+							}
+							className="shrink-0"
+						>
+							{person.ultimaOcorrencia.dataLocalizacao
+								? "Localizado"
+								: "Desaparecido"}
+						</Badge>
+					</div>
+				</CardHeader>
+				<CardContent className="space-y-3">
+					<div className="flex items-center gap-2 text-sm text-muted-foreground">
+						<Calendar className="w-4 h-4" />
+						{person.ultimaOcorrencia.dataLocalizacao ? (
+							<span>
+								Encontrado em{" "}
+								{new Date(
+									person.ultimaOcorrencia.dtDesaparecimento
+								).toLocaleDateString("pt-BR", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})}
+							</span>
+						) : (
+							<span>
+								Desaparecido em{" "}
+								{new Date(
+									person.ultimaOcorrencia.dtDesaparecimento
+								).toLocaleDateString("pt-BR", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})}
+							</span>
+						)}
+					</div>
+
+					<div className="flex items-center gap-2 text-sm text-muted-foreground">
+						<MapPin className="w-4 h-4" />
+						<span>{person.ultimaOcorrencia.localDesaparecimentoConcat}</span>
+					</div>
+				</CardContent>
+			</Card>
+		</Link>
 	);
 }
