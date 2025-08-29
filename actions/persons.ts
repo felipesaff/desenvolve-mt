@@ -14,7 +14,7 @@ export async function getPersons(filters: {
 	const { data } = await api.get<IPaginatedResponse<IPessoaDesaparecida>>(
 		`/pessoas/aberto/filtro`,
 		{
-			params: { ...filters, status: "DESAPARECIDO" },
+			params: filters,
 		}
 	);
 	return data;

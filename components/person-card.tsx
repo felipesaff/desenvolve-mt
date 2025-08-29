@@ -8,7 +8,7 @@ import Link from "next/link";
 export function PersonCard({ person }: { person: IPessoaDesaparecida }) {
 	return (
 		<Link href={`/person/${person.id}`}>
-			<Card className="overflow-hidden shadow-card transition-shadow hover:shadow-lg w-sm h-full">
+			<Card className="overflow-hidden shadow-card transition-shadow hover:shadow-lg h-full">
 				<CardHeader>
 					<div className="flex items-start justify-between">
 						<div className="flex items-center  gap-3">
