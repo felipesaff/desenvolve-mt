@@ -12,7 +12,11 @@ import { useRouter } from "next/navigation";
 import { IPaginatedResponse } from "@/types/pagination";
 import { IPessoaDesaparecida } from "@/types/person";
 import { Button } from "./ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	MoreHorizontalIcon,
+} from "lucide-react";
 
 export function PersonsPagination({
 	searchParams,
@@ -97,7 +101,7 @@ export function PersonsPagination({
 				{getPaginationItems().map((item, index) => (
 					<PaginationItem key={index}>
 						{item === "ellipsis" ? (
-							<PaginationEllipsis />
+							<MoreHorizontalIcon />
 						) : (
 							<Button
 								onClick={(e) => {

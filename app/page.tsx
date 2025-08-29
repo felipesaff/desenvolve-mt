@@ -19,10 +19,12 @@ export default async function Home({
 					<PersonCard key={person.id} person={person} />
 				))}
 			</div>
-			<PersonsPagination
-				searchParams={await searchParams}
-				pagination={paginatedPersons}
-			/>
+			<div className="w-full overflow-x-auto">
+				<PersonsPagination
+					searchParams={await searchParams}
+					pagination={paginatedPersons}
+				/>
+			</div>
 		</main>
 	);
 }
