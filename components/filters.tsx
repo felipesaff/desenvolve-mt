@@ -17,8 +17,8 @@ export function Filters({ filters }: { filters: IPersonFilters }) {
 	const form = useForm<IPersonFilters>({
 		defaultValues: {
 			nome: filters.nome,
-			sexo: filters.sexo,
-			status: filters.status,
+			sexo: filters.sexo ?? "all",
+			status: filters.status ?? "all",
 		},
 	});
 
