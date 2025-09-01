@@ -1,8 +1,9 @@
 import { getPersons } from "@/actions/persons";
 import { Filters } from "@/components/filters";
-import { PersonCard } from "@/components/person-card";
+import { PersonsList } from "@/components/persons-list";
 import { PersonsPagination } from "@/components/persons-pagination";
 import { IPersonFilters } from "@/types/filters";
+import { Suspense } from "react";
 
 export default async function Home({
 	searchParams,
@@ -10,18 +11,16 @@ export default async function Home({
 	searchParams: Promise<IPersonFilters>;
 }) {
 	const filters = await searchParams;
-	const paginatedPersons = await getPersons(filters);
+	const paginatedPersons = getPersons(filters);
 	return (
 		<main className="flex flex-col items-center p-6 font-sans space-y-4">
 			<Filters filters={filters} />
-			<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4 w-full">
-				{paginatedPersons.content.map((person) => (
-					<PersonCard key={person.id} person={person} />
-				))}
-			</div>
+			<Suspense fallback={<div>Loading...</div>}>
+				<PersonsList persons={paginatedPersons} />
+			</Suspense>
 			<div className="w-full overflow-x-auto">
 				<PersonsPagination
-					searchParams={await searchParams}
+					searchParams={filters}
 					pagination={paginatedPersons}
 				/>
 			</div>
