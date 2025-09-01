@@ -1,13 +1,8 @@
 "use client";
 
 import { IPersonFilters } from "@/types/filters";
-import { useState } from "react";
-import {
-	Pagination,
-	PaginationContent,
-	PaginationItem,
-	PaginationEllipsis,
-} from "./ui/pagination";
+import { use, useState } from "react";
+import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination";
 import { useRouter } from "next/navigation";
 import { IPaginatedResponse } from "@/types/pagination";
 import { IPessoaDesaparecida } from "@/types/person";
@@ -20,11 +15,12 @@ import {
 
 export function PersonsPagination({
 	searchParams,
-	pagination,
+	pagination: paginatedPersons,
 }: {
 	searchParams: IPersonFilters;
-	pagination: IPaginatedResponse<IPessoaDesaparecida>;
+	pagination: Promise<IPaginatedResponse<IPessoaDesaparecida>>;
 }) {
+	const pagination = use(paginatedPersons);
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState(
 		searchParams.pagina ? Number(searchParams.pagina) : 0
@@ -32,7 +28,7 @@ export function PersonsPagination({
 
 	const getPaginationItems = () => {
 		const items: (number | "ellipsis")[] = [];
-		const maxVisiblePages = 4;
+		const maxVisiblePages = 5;
 
 		if (pagination.totalPages <= maxVisiblePages) {
 			for (let i = 1; i <= pagination.totalPages; i++) {
@@ -42,7 +38,7 @@ export function PersonsPagination({
 			// sempre motrar a pagina 1
 			items.push(1);
 
-			if (currentPage <= 3) {
+			if (currentPage <= 2) {
 				// mostrar primeiras 3 paginas + ellipsis + ultima pagina
 				items.push(2, 3, 4);
 				if (pagination.totalPages > 4) {
@@ -61,6 +57,7 @@ export function PersonsPagination({
 				// mostrar ellipsis + pagina atual + proxima + ellipsis + ultima
 				items.push(
 					"ellipsis",
+					currentPage,
 					currentPage + 1,
 					currentPage + 2,
 					"ellipsis",
