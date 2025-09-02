@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: meu-nextjs-app
+    ports:
+      - "3000:3000"
+    volumes:
+      # Monta o código local no container (hot reload!)
+      - .:/app
+      # Ignora node_modules do host
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
