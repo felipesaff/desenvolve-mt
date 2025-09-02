@@ -1,12 +1,6 @@
 import { getPersonById } from "@/actions/persons";
 import { Loader } from "@/components/loader";
 import { PersonDetails } from "@/components/person-details";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { formatDate, personWasFound } from "@/lib/utils";
-import { Calendar, MapPin, Plus, User } from "lucide-react";
-import Image from "next/image";
 import { Suspense } from "react";
 
 export default async function Page({
