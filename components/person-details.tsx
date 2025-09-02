@@ -28,7 +28,7 @@ export function PersonDetails({
 							height={500}
 						/>
 					) : (
-						<div className="h-60 rounded-md flex justify-center items-center bg-muted-foreground">
+						<div className="h-60 w-full rounded-md flex justify-center items-center bg-muted-foreground">
 							<p>Sem foto</p>
 						</div>
 					)}
