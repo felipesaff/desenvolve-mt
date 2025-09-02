@@ -21,3 +21,11 @@ export interface IPessoaDesaparecida {
 	urlFoto: string | null;
 	ultimaOcorrencia: UltimaOcorrencia;
 }
+
+export interface IPersonAdditionalInfomation {
+	informacao: string;
+	descricao: string;
+	data: string;
+	ocoId: number;
+	files?: FileList;
+}
