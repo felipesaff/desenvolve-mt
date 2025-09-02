@@ -1,11 +1,14 @@
+"use client";
 import { IPessoaDesaparecida } from "@/types/person";
-import { use } from "react";
+import { lazy, use } from "react";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { formatDate, personWasFound } from "@/lib/utils";
 import { Badge } from "./ui/badge";
-import { Calendar, MapPin, Plus, User } from "lucide-react";
-import { Button } from "./ui/button";
+import { Calendar, MapPin, User } from "lucide-react";
+const PersonFormDialog = lazy(() =>
+	import("./person-form-dialog").then((m) => ({ default: m.PersonFormDialog }))
+);
 
 export function PersonDetails({
 	person: personProp,
@@ -97,10 +100,7 @@ export function PersonDetails({
 						</div>
 
 						<div className="pt-4">
-							<Button className="w-full lg:w-auto" size="lg">
-								<Plus className="h-5 w-5 mr-2" />
-								Possui alguma informação? Clique aqui
-							</Button>
+							<PersonFormDialog ocoId={person.ultimaOcorrencia.ocoId} />
 						</div>
 					</div>
 				</div>
